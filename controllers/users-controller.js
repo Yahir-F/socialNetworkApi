@@ -19,6 +19,18 @@ allUsers(req, res){
 },
 
 
+UserbyId({params}, res) {
+    User.findOne({_id: params.id})
+    .populate({path: 'friends', select: '-__v'})
+    .select('-__v')
+    .then(UserData => {
+        if(!UserData) {
+            res.json({message: "no user found"});
+            return;
+        }
+        res.json(UserData);
+    })
 
+}
 }
 module.exports = userController;
