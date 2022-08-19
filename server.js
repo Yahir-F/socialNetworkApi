@@ -1,7 +1,6 @@
-//setting modules
+// Require express and mongoose
 const express = require('express');
 const mongoose = require('mongoose');
-
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -11,14 +10,15 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
-//require routes
 app.use(require('./routes'));
 
-
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-api', {
+// Connect mongoose
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-network-api', {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useUnifiedTopology: true
 });
 
+// Log mongoose queries
+mongoose.set('debug', true);
 
-app.listen(PORT, () => console.log(`Running on ${PORT}`));
+app.listen(PORT, () => console.log(` ************** Connected on localhost:${PORT} ************* `));
