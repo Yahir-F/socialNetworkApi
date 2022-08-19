@@ -17,7 +17,21 @@ allUsers(req, res){
         console.log(err);
     })
 },
+ 
+addFriend({params}, res) {
+    User.findOneAndUpdate({})
+},
 
+removeUser({params, body}, res) {
+    User.findOneAndUpdate({_id: params.id}, body, {runValidators: true, new: true})
+    .then(UserData => {
+        if(!UserData){
+            res.json({message: "no user found with entered id"});
+            return;
+        }
+        res.json(UserData);
+    })
+},
 
 UserbyId({params}, res) {
     User.findOne({_id: params.id})
