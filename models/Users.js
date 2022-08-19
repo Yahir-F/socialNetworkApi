@@ -21,6 +21,6 @@ const UsersSchema = new Schema(
     type: Types.ObjectId,
     ref: "User"
  }]
-}
+},
 
 )
