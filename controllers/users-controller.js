@@ -19,8 +19,18 @@ allUsers(req, res){
 },
  
 addFriend({params}, res) {
-    User.findOneAndUpdate({})
+    User.findOneAndUpdate({_id: params.id}, {$push: {friendlist: params.friendId}}, {new: true})
+    .populate({path: 'friendlist', select: ('-__v')})
+    .select('-__v')
+    .then(UserData => {
+        if(!UserData) {
+            res.json({message: "no user found"});
+            return;
+        }
+        res.json(UserData)
+    });
 },
+
 
 removeUser({params, body}, res) {
     User.findOneAndUpdate({_id: params.id}, body, {runValidators: true, new: true})
