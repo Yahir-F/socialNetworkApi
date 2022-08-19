@@ -14,4 +14,4 @@ router.route('/:userId').post(newThought);
 
 
 
-module.exports = router
+module.exports = router;
