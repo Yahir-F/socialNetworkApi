@@ -13,3 +13,12 @@ app.use(express.static('public'));
 
 //require routes
 app.use(require('./routes'));
+
+
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-api', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+
+app.listen(PORT, () => console.log(`Running on ${PORT}`));
